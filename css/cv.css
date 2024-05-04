@@ -1,0 +1,97 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: dimgrey;
+    font-family: "Times New Roman", helvetica, "Hiragion Sans GB", sans-serif;
+}
+
+
+.container {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1080px;
+    padding-top: 30px;
+    padding-bottom: 80px;
+    padding-left: 5%;
+    padding-right: 5%;
+    background-color: white;
+}
+
+#name {
+    margin-bottom: 0;
+    font-size: 200%;
+}
+
+.profile {
+    overflow: hidden;
+}
+
+#info {
+    float: left;
+    padding: 0;
+    width: 70%;
+}
+
+#image {
+    float: left;
+    padding: 0;
+    width: 30%;
+    padding-top:16px;
+    padding-bottom: 0;
+}
+
+.myphoto {
+    width: 150px;
+}
+@media screen and (max-width: 1000px) {
+  .introduction, .myphoto { width: 100%}
+}
+
+.subtitle {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.line {
+    padding-top: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 1px;
+    background-color: black;
+}
+
+.event {
+    overflow: hidden;
+}
+
+.affiliation{
+    float: left;
+    width: 70%;
+}
+.time {
+    float: right;
+    width: 30%;
+}
+
+.process {
+    margin-top: 0px;
+    float: left;
+    width: 100%;
+}
+
+.publications {
+    list-style-position: outside;
+}
+
+.publications li {
+    margin: 0;
+    padding: 0;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.authorchen, .journal {
+    font-weight: bold;
+}
