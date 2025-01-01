@@ -12,9 +12,9 @@
             flex-direction: column;
             align-items: flex-start;
         }
-        .tool-list { /* 工具列表的样式 */
-            list-style-type: none; /* 移除列表项的默认样式 */
-            padding: 0; /* 移除内边距 */
+        .tool-list {
+            list-style-type: none;
+            padding: 0;
             margin-top: 20px;
         }
         .tool-list li {
@@ -55,6 +55,9 @@
         .error {
             color: red;
         }
+        .checkbox-label { /* 为复选框添加标签样式 */
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
@@ -62,25 +65,55 @@
         <h1>My Tools</h1>
         <ul class="tool-list">
             <li>
-                <h2>Tool 1 Hex to Decimal Converter</h2>
+                <h2>Hex to Decimal Converter</h2>
                 <div class="input-group">
                     <input type="text" id="hexInput" placeholder="Enter hexadecimal number (can contain spaces)">
+                    <input type="checkbox" id="signedCheckbox">
+                    <label for="signedCheckbox" class="checkbox-label">Signed</label>
                     <button onclick="convertHexToDecimal()">Convert</button>
                 </div>
                 <div id="decimalResult"></div>
             </li>
-	    <!--
-            <li>
-                <h2>Tool 2 (Coming Soon)</h2>
-            </li>
-            <li>
-                <h2>Tool 3 (Coming Soon)</h2>
-            </li>
-            <li>
-                <h2>Tool 4 (Coming Soon)</h2>
-	    </li>-->
         </ul>
     </div>
-    <script src="script.js"></script>
+    <script>
+        function convertHexToDecimal() {
+            const hexInput = document.getElementById("hexInput").value;
+            const decimalResult = document.getElementById("decimalResult");
+            const isSigned = document.getElementById("signedCheckbox").checked; // 获取复选框状态
+
+            try {
+                const cleanedHex = hexInput.replace(/\s/g, "");
+                const hexWithoutPrefix = cleanedHex.startsWith("0x") || cleanedHex.startsWith("0X") ? cleanedHex.substring(2) : cleanedHex;
+                const upperCaseHex = hexWithoutPrefix.toUpperCase();
+
+                if (!/^[0-9A-F]+$/.test(upperCaseHex)) {
+                    throw new Error("Invalid hexadecimal characters");
+                }
+
+                let decimalValue = BigInt("0x" + upperCaseHex);
+
+                if (isSigned) {
+                    const bits = upperCaseHex.length * 4; // 计算位数
+                    const maxValue = 2n ** BigInt(bits - 1);
+                    if (decimalValue >= maxValue) {
+                        decimalValue -= 2n ** BigInt(bits);
+                    }
+                }
+
+                decimalResult.textContent = "Result: " + decimalValue.toString(10);
+            } catch (error) {
+                decimalResult.textContent = "Error: " + error.message;
+            }
+        }
+
+        const hexInput = document.getElementById("hexInput");
+        hexInput.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                convertHexToDecimal();
+            }
+        });
+    </script>
 </body>
 </html>
